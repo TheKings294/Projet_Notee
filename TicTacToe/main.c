@@ -34,6 +34,7 @@ int main()
     while (Plateau[i] != '\0')
     {
         Plateau[i] = ' ';
+        i++;
     }
 
     int count = 0;

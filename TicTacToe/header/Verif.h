@@ -6,6 +6,7 @@ Fichier des prototypes des fonctions pour la vérification du gagnant
 
 int VerifWinner(char *p)
 {
+    int CasePlien = 0;
 
     if ((p[0] == 'X' && p[1] == 'X' && p[2] == 'X') || (p[0] == 'O' && p[1] == 'O' && p[2] == 'O')) // Horizontale
     {
@@ -42,11 +43,16 @@ int VerifWinner(char *p)
 
     for (int i = 0; i < 9; i++)
     {
-        if (p[i] == ' ')
+        if (p[i] == 'X' || p[i] == 'O')
         {
-            return 0;
+            CasePlien++;
         }
     }
 
-    return 10;
+    if (CasePlien == 9)
+    {
+        return 10;
+    }
+
+    return 0;
 }
