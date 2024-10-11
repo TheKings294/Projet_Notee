@@ -41,6 +41,10 @@ int main()
     printf("    ###  ##   ##  ## ###   ##   ##   ##  ##   ## ###   ##  ##  \n");
     printf("##   ##  ##   ##  ##  ##   ##   ##   ##  ##   ##  ##   ##  ##  \n");
     printf(" ## ##    ## ##   ##  ###   ## ##   ### ##   ###  ##  ###  ##  \n\n");
+
+    printf("Joueur : %d %d\n", Jx, Jy);
+    printf("Boite : %d %d\n", Bx, By);
+    printf("Emplacement : %d %d\n", Fx, Fy);
     displaygame(Game);
 
     while (victoir != 1)
@@ -55,6 +59,9 @@ int main()
 
         moveplayer(Game, &Jx, &Jy, Dir, &Bx, &By);
         system("clear");
+        printf("Joueur : %d %d\n", Jx, Jy);
+        printf("Boite : %d %d\n", Bx, By);
+        printf("Emplacement : %d %d\n", Fx, Fy);
         displaygame(Game);
 
         victoir = victoire(&Bx, &By, Fx, Fy, Game);
