@@ -39,6 +39,10 @@ int main()
     while (victoir != 1)
     {
         Dir = 0;
+        if (Game[Fx][Fy] == ' ')
+        {
+            Game[Fx][Fy] = '.';
+        }
         printf("Choisir une direction : z(avent) q(gauche) s(bas) d(droite)\n");
         scanf("%c", &Dir);
 
