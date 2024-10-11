@@ -46,7 +46,7 @@ int main()
         system("clear");
         displaygame(Game);
 
-        victoir = victoire(Bx, By, Fx, Fy);
+        victoir = victoire(&Bx, &By, Fx, Fy, Game);
     }
 
     for (int i = 0; i < 11; i++)
