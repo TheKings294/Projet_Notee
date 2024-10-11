@@ -12,5 +12,6 @@ void displaygame(char **Game);
 void placeObjet(char **Game, int *jx, int *jy, int *bx, int *by, int *fx, int *fy);
 
 /*Prototype des fonctions du mouvement du joueur*/
-void moveplayer(char **Game, int *jx, int *jy, char Dir);
+void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by);
+void movebox(char **Game, int *bx, int *by, char Dir);
 #endif

@@ -37,11 +37,11 @@ int main()
 
     while (victoire != 1)
     {
-        Dir = -1;
+        Dir = 0;
         printf("Choisir une direction : z(avent) q(gauche) s(bas) d(droite)\n");
         scanf("%c", &Dir);
 
-        moveplayer(Game, &Jx, &Jy, Dir);
+        moveplayer(Game, &Jx, &Jy, Dir, &Bx, &By);
         displaygame(Game);
     }
 
