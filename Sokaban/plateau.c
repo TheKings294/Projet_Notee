@@ -21,12 +21,12 @@ void placeObjet(char **Game, int *jx, int *jy, int *bx, int *by, int *fx, int *f
 
     /*Placer Box Entrepot*/
 
-    int random_line_b = rand() % 10 + 1;
-    int random_colum_b = rand() % 10 + 1;
+    int random_line_b = rand() % 9 + 2;
+    int random_colum_b = rand() % 9 + 2;
 
     if (random_line_j == random_line_b)
     {
-        random_line_b = rand() % 10 + 1;
+        random_line_b = rand() % 9 + 2;
     }
     Game[random_line_b][random_colum_b] = 'X';
     *bx = random_line_b;

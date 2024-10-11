@@ -63,7 +63,7 @@ void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by)
         }
         else if (Game[(*jx - 1)][*jy] == 'X')
         {
-            movebox(Game, &bx, &by, Dir);
+            movebox(Game, bx, by, Dir);
             Game[*jx][*jy] = ' ';
             Game[(*jx - 1)][*jy] = 'o';
             *jx = *jx - 1;
@@ -79,6 +79,13 @@ void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by)
         if (Game[*jx][(*jy - 1)] == '#')
         {
         }
+        else if (Game[*jx][(*jy - 1)] == 'X')
+        {
+            movebox(Game, bx, by, Dir);
+            Game[*jx][*jy] = ' ';
+            Game[*jx][(*jy - 1)] = 'o';
+            *jy = *jy - 1;
+        }
         else
         {
             Game[*jx][*jy] = ' ';
@@ -90,6 +97,13 @@ void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by)
         if (Game[(*jx + 1)][*jy] == '#')
         {
         }
+        else if (Game[(*jx + 1)][*jy] == 'X')
+        {
+            movebox(Game, bx, by, Dir);
+            Game[*jx][*jy] = ' ';
+            Game[(*jx + 1)][*jy] = 'o';
+            *jx = *jx + 1;
+        }
         else
         {
             Game[*jx][*jy] = ' ';
@@ -100,6 +114,13 @@ void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by)
     case 'd':
         if (Game[*jx][(*jy + 1)] == '#')
         {
+        }
+        else if (Game[*jx][(*jy + 1)] == 'X')
+        {
+            movebox(Game, bx, by, Dir);
+            Game[*jx][*jy] = ' ';
+            Game[*jx][(*jy + 1)] = 'o';
+            *jy = *jy + 1;
         }
         else
         {

@@ -14,4 +14,7 @@ void placeObjet(char **Game, int *jx, int *jy, int *bx, int *by, int *fx, int *f
 /*Prototype des fonctions du mouvement du joueur*/
 void moveplayer(char **Game, int *jx, int *jy, char Dir, int *bx, int *by);
 void movebox(char **Game, int *bx, int *by, char Dir);
+
+/*Prototype des fonctions de la victoire*/
+int victoire(int bx, int by, int fx, int fy);
 #endif

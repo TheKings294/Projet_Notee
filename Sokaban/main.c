@@ -9,7 +9,7 @@ int main()
     int By;
     int Fx;
     int Fy;
-    int victoire = 0;
+    int victoir = 0;
     char Dir;
     Game = malloc(13 * sizeof(char *));
 
@@ -33,16 +33,20 @@ int main()
     Game[12] = NULL;
 
     placeObjet(Game, &Jx, &Jy, &Bx, &By, &Fx, &Fy);
+    system("clear");
     displaygame(Game);
 
-    while (victoire != 1)
+    while (victoir != 1)
     {
         Dir = 0;
         printf("Choisir une direction : z(avent) q(gauche) s(bas) d(droite)\n");
         scanf("%c", &Dir);
 
         moveplayer(Game, &Jx, &Jy, Dir, &Bx, &By);
+        system("clear");
         displaygame(Game);
+
+        victoir = victoire(Bx, By, Fx, Fy);
     }
 
     for (int i = 0; i < 11; i++)

@@ -4,7 +4,8 @@ NAME = sokaban
 
 SRCS = main.c \
 	plateau.c \
-	move.c
+	move.c \
+	victoire.c
 
 all :  $(NAME)
 
