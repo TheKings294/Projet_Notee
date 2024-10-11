@@ -57,6 +57,7 @@ int movebox(char **Game, int *bx, int *by, char Dir)
         }
         break;
     default:
+        return 0;
         break;
     }
 }
