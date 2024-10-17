@@ -2,7 +2,7 @@
 
 NAME = snake
 
-SRCS = main.c createmap.c game.c
+SRCS = main.c createmap.c Chaine.c game.c
 
 all :  $(NAME)
 

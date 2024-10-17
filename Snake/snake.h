@@ -22,6 +22,15 @@ int count_lines(char *str);
 
 /*Game*/
 int aleatoire();
-void movesnake();
+int aleatoireX();
+void Miam(int *x, int *y, int pos_y, int pos_x, char **tab, Snake **snake);
+
+/*Liste chaine*/
+Snake *create_list(int pos_y, int pos_x);
+void display_list(Snake **list, char **tab);
+void add_to_end(Snake **list, int pos_y, int pos_x);
+void delete_list(Snake **list);
+void moove_snake(Snake **list, int pos_y, int pos_x);
+void refresh_snake(Snake **list, char **tab, int line);
 
 #endif
