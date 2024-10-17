@@ -46,28 +46,3 @@ int count_lines(char *str)
   return lines;
 }
 
-void createmap(SDL_Surface *surface, SDL_Renderer *renderer, char **map, int lines) {
-
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-  if (texture == NULL)
-  {
-    printf("Error creating texture\n");
-  }
-  SDL_FreeSurface(surface);
-
-  int i = 0;
-  int j = 0;
-
-  while(i < lines) {
-      while(j < 40) {
-        if(map[i][j] == '#') {
-          SDL_Rect rect = {0, 0, 16, 16};
-          SDL_Rect dist = {j*16, 0, 16, 16};
-          SDL_RenderCopy(renderer, texture, &dist, &rect);
-          }
-
-          j++;
-    }
-    i++;
-  }
-}

@@ -29,71 +29,26 @@ int main(void) {
 
     free(map);
     fclose(fp);
-    //display_tab(tab, lines);
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         printf("Error SDL2 Init : %s\n", SDL_GetError());
         return 1;
     }
-
-    SDL_Window* window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 448, SDL_WINDOW_OPENGL);
+    SDL_Window* window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
     if (window == NULL) {
-        printf("Error Window Creation\n");
-        return 3;
+         printf("Error while creating a window : %s\n", SDL_GetError());
+         return 1;
     }
-    if (IMG_Init(IMG_INIT_PNG) == 0)
-    {
-        printf("Erreur d'initialisation de la SDL_Image\n");
-        return 1;
-    }
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL)
-    {
-        printf("Erreur à la création du renderer\n");
-        return 1;
-    }
-    SDL_Surface* surface = IMG_Load("levels.png");
-    if (surface == NULL)
-    {
-        printf("Error loading image %s\n", IMG_GetError());
-        return 1;
-    }
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (texture == NULL)
-    {
-        printf("Error creating texture\n");
-    }
-    SDL_FreeSurface(surface);
-
-    i = 0;
-    j = 0;
-    SDL_RenderClear(renderer);
-    while(i < lines) {
-      j = 0;
-        while(j < 40) {
-            if(tab[i][j] == '#') {
-                SDL_Rect rect = {0, 0, 16, 16};
-                SDL_Rect dist = {j * 16, i * 16, 16, 16};
-                SDL_RenderCopy(renderer, texture, &rect, &dist);
-            }
-            else {
-
-            }
-
-            j++;
-        }
-        i++;
-    }
-    SDL_RenderPresent(renderer);
 
     while (1)
     {
         SDL_Event e;
         if (SDL_WaitEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
+          if (e.type == SDL_QUIT) {
+            SDL_Quit();
+            break;
             }
-        }
+            }
     }
 
     while((line != NULL) && (i < lines))
@@ -103,10 +58,5 @@ int main(void) {
     }
     free(tab);
 
-    //SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    IMG_Quit();
-    SDL_Quit();
     return 0;
 }
