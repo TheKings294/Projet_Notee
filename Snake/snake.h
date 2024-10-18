@@ -15,6 +15,8 @@ struct Snake {
   Snake *next;
   };
 
+enum Direction {UP, DOWN, LEFT, RIGHT};
+
 /*Createmap.c*/
 char *get_file(FILE *fp);
 void display_tab(char **tab, int lines);
@@ -24,6 +26,7 @@ int count_lines(char *str);
 int aleatoire();
 int aleatoireX();
 void Miam(int *x, int *y, int pos_y, int pos_x, char **tab, Snake **snake);
+int Win(Snake **snake);
 
 /*Liste chaine*/
 Snake *create_list(int pos_y, int pos_x);

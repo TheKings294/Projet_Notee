@@ -15,6 +15,7 @@ int main(void) {
     int headx = 4;
     int foody = aleatoire();
     int foodx = aleatoire();
+    //enum Direction curentDirection = RIGHT;
 
     map = get_file(fp);
     lines = count_lines(map);
@@ -126,13 +127,15 @@ int main(void) {
                     winn = 1;
                   }
                   Miam(&foody, &foodx, heady, headx, tab, &snakeHead);
+				  //curentDirection = UP;
                   break;
                 case SDLK_DOWN:
-                  heady = heady + 1;
+                heady = heady + 1;
               	if(tab[heady][headx] == '#'||tab[heady][headx] == 'X') {
               		winn = 1;
               	}
               	Miam(&foody, &foodx, heady, headx, tab, &snakeHead);
+                //curentDirection = DOWN;
                 break;
                 case SDLK_LEFT:
                   headx = headx - 1;
@@ -140,6 +143,7 @@ int main(void) {
               		winn = 1;
               	}
               	Miam(&foody, &foodx, heady, headx, tab, &snakeHead);
+                //curentDirection = LEFT;
                 break;
                 case SDLK_RIGHT:
                   headx = headx + 1;
@@ -147,12 +151,18 @@ int main(void) {
               		winn = 1;
               	}
               	Miam(&foody, &foodx, heady, headx, tab, &snakeHead);
+                //curentDirection = RIGHT;
                 break;
                 default:
                   break;
                 }
-            	moove_snake(&snakeHead, heady, headx);
+
+                moove_snake(&snakeHead, heady, headx);
+                if(Win(&snakeHead) == 1) {
+                	winn = 1;
+                }
             	refresh_snake(&snakeHead, tab, lines);
+
              }
         }
     	i = 0;

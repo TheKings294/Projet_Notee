@@ -2,13 +2,13 @@
 
 int aleatoire() {
     srand(time(NULL));
-    int random_number = rand() % 21 + 2;
+    int random_number = rand() % 23;
 
     return random_number;
 }
 int aleatoireX() {
     srand(time(NULL));
-    int random_number = rand() % 40 + 2;
+    int random_number = rand() % 39;
 
     return random_number;
 }
@@ -19,7 +19,7 @@ void Miam(int *x, int *y, int pos_y, int pos_x, char **tab, Snake **snake) {
       *x = aleatoireX();
       *y = aleatoire();
 
-      while(tab[*y][*x] == 'X') {
+      while(tab[*y][*x] == 'X' || tab[*y][*x] == '#') {
          *x = aleatoireX();
       	 *y = aleatoire();
       }
@@ -27,4 +27,21 @@ void Miam(int *x, int *y, int pos_y, int pos_x, char **tab, Snake **snake) {
       tab[*y][*x] = 'O';
 
 	}
+}
+
+int Win(Snake **snake) {
+	Snake *tmp = *snake;
+    int serpent = 0;
+    int victoire = 0;
+
+    while(tmp != NULL)
+    {
+        serpent++;
+        tmp = tmp->next;
+    }
+
+    if(serpent == 874) {
+      victoire = 1;
+    }
+    return victoire;
 }
