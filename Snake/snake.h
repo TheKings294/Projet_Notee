@@ -15,7 +15,7 @@ struct Snake {
   Snake *next;
   };
 
-enum Direction {UP, DOWN, LEFT, RIGHT};
+typedef enum {UP, DOWN, LEFT, RIGHT} Direction;
 
 /*Createmap.c*/
 char *get_file(FILE *fp);
