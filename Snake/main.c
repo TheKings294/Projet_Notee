@@ -92,11 +92,11 @@ int main(void) {
             	SDL_Rect dist = {j * 16, i * 16, 16, 16};
             	SDL_RenderCopy(renderer, texture, &rect, &dist);
             } else if(tab[i][j] == 'X') {
-              	SDL_Rect rect = {16, 0, 16, 16};
+              	SDL_Rect rect = {32, 0, 16, 16};
             	SDL_Rect dist = {j * 16, i * 16, 16, 16};
             	SDL_RenderCopy(renderer, texture, &rect, &dist);
             } else if(tab[i][j] == 'O') {
-              SDL_Rect rect = {32, 0, 16, 16};
+              SDL_Rect rect = {16, 0, 16, 16};
               SDL_Rect dist = {j * 16, i * 16, 16, 16};
               SDL_RenderCopy(renderer, texture, &rect, &dist);
             }
@@ -177,11 +177,11 @@ int main(void) {
     				SDL_Rect dist = {j * 16, i * 16, 16, 16};
     				SDL_RenderCopy(renderer, texture, &rect, &dist);
     			} else if(tab[i][j] == 'X') {
-    				SDL_Rect rect = {16, 0, 16, 16};
+    				SDL_Rect rect = {32, 0, 16, 16};
     				SDL_Rect dist = {j * 16, i * 16, 16, 16};
     				SDL_RenderCopy(renderer, texture, &rect, &dist);
     			} else if(tab[i][j] == 'O') {
-    				SDL_Rect rect = {32, 0, 16, 16};
+    				SDL_Rect rect = {16, 0, 16, 16};
     				SDL_Rect dist = {j * 16, i * 16, 16, 16};
     				SDL_RenderCopy(renderer, texture, &rect, &dist);
     			}
