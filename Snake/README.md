@@ -4,4 +4,8 @@
 
 **Les touches**
 
-Vous devez utiliser les flèches directionelle 
+Vous devez utiliser les flèches directionelle\
+Haut\
+Bas\
+Gauche\
+Droite
