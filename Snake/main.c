@@ -76,6 +76,11 @@ int main(void) {
     SDL_Log("Failed to load font: %s", TTF_GetError());
     return 1;
 	}
+    TTF_Font *Tttelfont = TTF_OpenFont("/System/Library/Fonts/MarkerFelt.ttc", 100); // Remplace "path/to/font.ttf" par le chemin de ta police, et 24 par la taille souhaitée
+	if (Tttelfont == NULL) {
+    SDL_Log("Failed to load font: %s", TTF_GetError());
+    return 1;
+	}
     SDL_Window* window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 448, SDL_WINDOW_OPENGL);
     if (window == NULL) {
          printf("Error while creating a window : %s\n", SDL_GetError());
@@ -98,6 +103,16 @@ int main(void) {
     	printf("Error loading image %s\n", IMG_GetError());
     	return 1;
 	}
+    SDL_Color colorv = {0, 255, 0, 255};
+    SDL_Color colorr = {255, 0, 0, 255};
+    SDL_Surface *titelwinTextSurface = TTF_RenderText_Solid(Tttelfont, "Gagner", colorv);
+    if (titelwinTextSurface == NULL) {
+    SDL_Log("Unable to render text surface: %s", TTF_GetError());
+    }
+    SDL_Surface *titellooseTextSurface = TTF_RenderText_Solid(Tttelfont, "Perdu", colorr);
+    if (titellooseTextSurface == NULL) {
+    SDL_Log("Unable to render text surface: %s", TTF_GetError());
+    }
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 	if (texture == NULL)
 	{
@@ -105,8 +120,18 @@ int main(void) {
     	return 1;
 	}
     SDL_FreeSurface(surface);
+    SDL_Texture *titelwinTextTexture = SDL_CreateTextureFromSurface(renderer, titelwinTextSurface);
+    SDL_FreeSurface(titelwinTextSurface);
+    if (titelwinTextTexture == NULL) {
+    SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
+    }
+    SDL_Texture *titelloseTextTexture = SDL_CreateTextureFromSurface(renderer, titellooseTextSurface);
+    SDL_FreeSurface(titellooseTextSurface);
+    if (titelloseTextTexture == NULL) {
+    SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
+    }
 
-    display_game(renderer, texture, font,  tab, lines, score, *tab[1], *tab[0]);
+    display_game(renderer, texture, font,  tab, lines, score, tab2[1], tab2[0]);
 
     int winn = 0;
     while (winn == 0)
@@ -129,11 +154,29 @@ int main(void) {
             moove_snake(&snakeHead, heady, headx);
             if(Win(&snakeHead) == 1) {
                winn = 1;
+               SDL_Rect rect;
+               rect.x = 50;
+               rect.y = 200;
+               SDL_QueryTexture(titelwinTextTexture, NULL, NULL, &rect.w, &rect.h);
+               SDL_RenderCopy(renderer, titelwinTextTexture, NULL, &rect);
+               SDL_RenderPresent(renderer);
+               sleep(2);
             }
               refresh_snake(&snakeHead, tab, lines);
         }
-        display_game(renderer, texture, font, tab, lines, score, *tab[1], *tab[0]);
+        display_game(renderer, texture, font, tab, lines, score, tab2[1], tab2[0]);
     }
+
+    FILE *fp3 = fopen("lives.txt", "w+");
+
+    if (score > tab2[1]) {
+      tab2[1] = score;
+    }
+    tab2[0] += 1;
+    fprintf(fp3, "%d\n%d", tab2[0], tab2[1]);
+
+    fclose(fp3);
+
 
     while((line != NULL) && (i < lines))
     {

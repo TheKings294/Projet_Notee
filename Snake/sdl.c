@@ -79,7 +79,7 @@ void display_game(SDL_Renderer* renderer, SDL_Texture* texture, TTF_Font *font, 
   highScoreTextRect.y = 410; // Position y du texte
   SDL_QueryTexture(highScoreTextTexture, NULL, NULL, &highScoreTextRect.w, &highScoreTextRect.h);
   SDL_Rect gameTextRect;
-  gameTextRect.x = 320; // Position x du texte
+  gameTextRect.x = 400; // Position x du texte
   gameTextRect.y = 410; // Position y du texte
   SDL_QueryTexture(gameTextTexture, NULL, NULL, &gameTextRect.w, &gameTextRect.h);
 

@@ -43,7 +43,7 @@ int Win(Snake **snake) {
         tmp = tmp->next;
     }
 
-    if(serpent == 874) {
+    if(serpent == 5) {
       victoire = 1;
     }
     return victoire;
