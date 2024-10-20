@@ -12,7 +12,7 @@ void display_game(SDL_Renderer* renderer, SDL_Texture* texture, TTF_Font *font, 
   char gameText[20];
 
 
-  SDL_Color color = {255, 255, 255, 255}; // Couleur du texte (blanc)
+  SDL_Color color = {255, 255, 255, 255};
   snprintf(scoreText, sizeof(scoreText), "Score: %d", score);
   snprintf(highScoreText, sizeof(highScoreText), "High score: %d", hightscore);
   snprintf(gameText, sizeof(gameText), "Partie: %d", game);
@@ -30,17 +30,17 @@ void display_game(SDL_Renderer* renderer, SDL_Texture* texture, TTF_Font *font, 
   }
   /*================================================================================*/
   SDL_Texture *scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
-  SDL_FreeSurface(scoreTextSurface); // Libérer la surface après avoir créé la texture
+  SDL_FreeSurface(scoreTextSurface);
   if (scoreTextTexture == NULL) {
     SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
   }
   SDL_Texture *highScoreTextTexture = SDL_CreateTextureFromSurface(renderer, highScoreTextSurface);
-  SDL_FreeSurface(highScoreTextSurface); // Libérer la surface après avoir créé la texture
+  SDL_FreeSurface(highScoreTextSurface);
   if (highScoreTextTexture == NULL) {
     SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
   }
   SDL_Texture *gameTextTexture = SDL_CreateTextureFromSurface(renderer, gameTextSurface);
-  SDL_FreeSurface(gameTextSurface); // Libérer la surface après avoir créé la texture
+  SDL_FreeSurface(gameTextSurface);
   if (gameTextTexture == NULL) {
     SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
   }
@@ -71,16 +71,16 @@ void display_game(SDL_Renderer* renderer, SDL_Texture* texture, TTF_Font *font, 
     i++;
   }
   SDL_Rect scoreTextRect;
-  scoreTextRect.x = 10; // Position x du texte
-  scoreTextRect.y = 410; // Position y du texte
+  scoreTextRect.x = 10;
+  scoreTextRect.y = 410;
   SDL_QueryTexture(scoreTextTexture, NULL, NULL, &scoreTextRect.w, &scoreTextRect.h);
   SDL_Rect highScoreTextRect;
-  highScoreTextRect.x = 200; // Position x du texte
-  highScoreTextRect.y = 410; // Position y du texte
+  highScoreTextRect.x = 200;
+  highScoreTextRect.y = 410;
   SDL_QueryTexture(highScoreTextTexture, NULL, NULL, &highScoreTextRect.w, &highScoreTextRect.h);
   SDL_Rect gameTextRect;
-  gameTextRect.x = 400; // Position x du texte
-  gameTextRect.y = 410; // Position y du texte
+  gameTextRect.x = 400;
+  gameTextRect.y = 410;
   SDL_QueryTexture(gameTextTexture, NULL, NULL, &gameTextRect.w, &gameTextRect.h);
 
   SDL_RenderCopy(renderer, scoreTextTexture, NULL, &scoreTextRect);

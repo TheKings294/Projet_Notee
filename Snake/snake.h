@@ -29,8 +29,8 @@ int aleatoire();
 int aleatoireX();
 void Miam(int *x, int *y, int pos_y, int pos_x, char **tab, Snake **snake, int *score);
 int Win(Snake **snake);
-void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, Direction *curentDirection, int *winn, int *score);
-void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, int *winn, int *score);
+void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, Direction *curentDirection, int *winn, int *score, SDL_Renderer* renderer, SDL_Texture *Texture, TTF_Font *font);
+void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, int *winn, int *score, SDL_Renderer* renderer, SDL_Texture *Texture, TTF_Font *font);
 
 /*Liste chaine*/
 Snake *create_list(int pos_y, int pos_x);

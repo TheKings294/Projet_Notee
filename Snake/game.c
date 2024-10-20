@@ -43,18 +43,43 @@ int Win(Snake **snake) {
         tmp = tmp->next;
     }
 
-    if(serpent == 5) {
+    if(serpent == 5) { //874
       victoire = 1;
     }
     return victoire;
 }
 
-void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, Direction *curentDirection, int *winn, int *score) {
+void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, Direction *curentDirection, int *winn, int *score, SDL_Renderer* renderer, SDL_Texture *Texture, TTF_Font *font) {
+	SDL_Color color = {255, 255, 255, 255};
+	char scoreText[20];
+	snprintf(scoreText, sizeof(scoreText), "Score: %d", *score);
+	SDL_Surface *scoreTextSurface = TTF_RenderText_Solid(font, scoreText, color);
+	if (scoreTextSurface == NULL) {
+		SDL_Log("Unable to render text surface: %s", TTF_GetError());
+	}
+	SDL_Texture *scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
+	SDL_FreeSurface(scoreTextSurface);
+	if (scoreTextTexture == NULL) {
+		SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
+	}
+  SDL_Rect rect;
+  rect.x = 190;
+  rect.y = 150;
+  SDL_Rect rect2;
+  rect2.x = 270;
+  rect2.y = 300;
+  SDL_QueryTexture(Texture, NULL, NULL, &rect.w, &rect.h);
+  SDL_QueryTexture(scoreTextTexture, NULL, NULL, &rect2.w, &rect2.h);
+  SDL_RenderClear(renderer);
   switch (e.key.keysym.sym) {
                 case SDLK_UP:
                   *y = *y - 1;
                   if(tab[*y][*x] == '#'|| tab[*y][*x] == 'X') {
                     *winn = 1;
+                  	SDL_RenderCopy(renderer, Texture, NULL, &rect);
+                  	SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+                  	SDL_RenderPresent(renderer);
+                  	sleep(2);
                   }
                   Miam(fy, fx, *y, *x, tab, snake, score);
 				  *curentDirection = UP;
@@ -63,6 +88,10 @@ void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int 
                 *y = *y + 1;
               	if(tab[*y][*x] == '#'||tab[*y][*x] == 'X') {
               		*winn = 1;
+              		SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              		SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              		SDL_RenderPresent(renderer);
+              		sleep(2);
               	}
               	Miam(fy, fx, *y, *x, tab, snake, score);
                 *curentDirection = DOWN;
@@ -71,6 +100,10 @@ void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int 
                 *x = *x - 1;
               	if(tab[*y][*x] == '#' || tab[*y][*x] == 'X') {
               		*winn = 1;
+              		SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              		SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              		SDL_RenderPresent(renderer);
+              		sleep(2);
               	}
               	Miam(fy, fx, *y, *x, tab, snake, score);
                 *curentDirection = LEFT;
@@ -79,6 +112,10 @@ void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int 
                 *x = *x + 1;
               	if(tab[*y][*x] == '#' || tab[*y][*x] == 'X') {
               		*winn = 1;
+              		SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              		SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              		SDL_RenderPresent(renderer);
+              		sleep(2);
               	}
               	Miam(fy, fx, *y, *x, tab, snake, score);
                 *curentDirection = RIGHT;
@@ -89,12 +126,37 @@ void moved(SDL_Event e, int *y, int *x, char **tab, Snake **snake, int *fy, int 
 
 }
 
-void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, int *winn, int *score) {
+void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **snake, int *fy, int *fx, int *winn, int *score, SDL_Renderer* renderer, SDL_Texture *Texture, TTF_Font *font) {
+	SDL_Color color = {255, 255, 255, 255};
+	char scoreText[20];
+  	snprintf(scoreText, sizeof(scoreText), "Score: %d", *score);
+	SDL_Surface *scoreTextSurface = TTF_RenderText_Solid(font, scoreText, color);
+	if (scoreTextSurface == NULL) {
+		SDL_Log("Unable to render text surface: %s", TTF_GetError());
+	}
+	SDL_Texture *scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
+	SDL_FreeSurface(scoreTextSurface);
+	if (scoreTextTexture == NULL) {
+		SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
+	}
+  	SDL_Rect rect;
+	rect.x = 190;
+	rect.y = 150;
+	SDL_Rect rect2;
+	rect2.x = 270;
+	rect2.y = 300;
+	SDL_QueryTexture(Texture, NULL, NULL, &rect.w, &rect.h);
+	SDL_QueryTexture(scoreTextTexture, NULL, NULL, &rect2.w, &rect2.h);
+	SDL_RenderClear(renderer);
   switch (curentDirection) {
             case UP:
               *y = *y - 1;
               if(tab[*y][*x] == '#'|| tab[*y][*x] == 'X') {
                   *winn = 1;
+              	SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              	SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              	SDL_RenderPresent(renderer);
+              	sleep(2);
               }
               Miam(fy, fx, *y, *x, tab, snake, score);
               break;
@@ -102,6 +164,10 @@ void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **sn
               *y = *y + 1;
               	if(tab[*y][*x] == '#'||tab[*y][*x] == 'X') {
               		*winn = 1;
+              		SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              		SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              		SDL_RenderPresent(renderer);
+              		sleep(2);
               	}
               	Miam(fy, fx, *y, *x, tab, snake, score);
               break;
@@ -109,6 +175,10 @@ void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **sn
               *x = *x - 1;
               if(tab[*y][*x] == '#' || tab[*y][*x] == 'X') {
                 *winn = 1;
+              	SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              	SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              	SDL_RenderPresent(renderer);
+              	sleep(2);
               }
               Miam(fy, fx, *y, *x, tab, snake, score);
               break;
@@ -116,6 +186,10 @@ void automoved(Direction curentDirection, int *y, int *x, char **tab, Snake **sn
               *x = *x + 1;
               if(tab[*y][*x] == '#' || tab[*y][*x] == 'X') {
               	*winn = 1;
+              	SDL_RenderCopy(renderer, Texture, NULL, &rect);
+              	SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+              	SDL_RenderPresent(renderer);
+              	sleep(2);
               }
               Miam(fy, fx, *y, *x, tab, snake, score);
               break;

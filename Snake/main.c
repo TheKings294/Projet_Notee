@@ -12,6 +12,7 @@ int main(void) {
     char * lives;
     char **tab;
     char * line;
+    char scoreText[20];
     int lines;
     int *tab2;
     int i = 0;
@@ -71,12 +72,12 @@ int main(void) {
     SDL_Log("Unable to initialize SDL_ttf: %s", TTF_GetError());
     return 1;
 	}
-    TTF_Font *font = TTF_OpenFont("/System/Library/Fonts/MarkerFelt.ttc", 20); // Remplace "path/to/font.ttf" par le chemin de ta police, et 24 par la taille souhaitée
+    TTF_Font *font = TTF_OpenFont("/System/Library/Fonts/MarkerFelt.ttc", 20);
 	if (font == NULL) {
     SDL_Log("Failed to load font: %s", TTF_GetError());
     return 1;
 	}
-    TTF_Font *Tttelfont = TTF_OpenFont("/System/Library/Fonts/MarkerFelt.ttc", 100); // Remplace "path/to/font.ttf" par le chemin de ta police, et 24 par la taille souhaitée
+    TTF_Font *Tttelfont = TTF_OpenFont("/System/Library/Fonts/MarkerFelt.ttc", 100);
 	if (Tttelfont == NULL) {
     SDL_Log("Failed to load font: %s", TTF_GetError());
     return 1;
@@ -97,6 +98,7 @@ int main(void) {
     	printf("Erreur à la création du renderer\n");
     	return 1;
 	}
+    SDL_Color color = {255, 255, 255, 255};
     SDL_Surface* surface = IMG_Load("levels.png");
 	if (surface == NULL)
 	{
@@ -136,29 +138,56 @@ int main(void) {
     int winn = 0;
     while (winn == 0)
     {
+       snprintf(scoreText, sizeof(scoreText), "Score: %d", (score + 10));
+    	SDL_Surface *scoreTextSurface = TTF_RenderText_Solid(font, scoreText, color);
+  		if (scoreTextSurface == NULL) {
+    		SDL_Log("Unable to render text surface: %s", TTF_GetError());
+  		}
+    	SDL_Texture *scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
+  		SDL_FreeSurface(scoreTextSurface);
+  		if (scoreTextTexture == NULL) {
+    		SDL_Log("Unable to create texture from surface: %s", SDL_GetError());
+  		}
       SDL_Event e;
         if (SDL_WaitEventTimeout(&e, 125)) {
           if (e.type == SDL_QUIT) {
             break;
             }
             else if (e.type == SDL_KEYDOWN) {
-                moved(e, &heady, &headx, tab, &snakeHead, &foody, &foodx, &curentDirection, &winn, &score);
+                moved(e, &heady, &headx, tab, &snakeHead, &foody, &foodx, &curentDirection, &winn, &score, renderer, titelloseTextTexture, font);
                 moove_snake(&snakeHead, heady, headx);
                 if(Win(&snakeHead) == 1) {
                 	winn = 1;
+                     SDL_Rect rect;
+               		 rect.x = 190;
+               		 rect.y = 170;
+                     SDL_Rect rect2;
+                     rect2.x = 270;
+                     rect2.y = 300;
+                	 SDL_QueryTexture(titelwinTextTexture, NULL, NULL, &rect.w, &rect.h);
+                     SDL_QueryTexture(scoreTextTexture, NULL, NULL, &rect2.w, &rect2.h);
+               	  	 SDL_RenderCopy(renderer, titelwinTextTexture, NULL, &rect);
+                     SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
+               		 SDL_RenderPresent(renderer);
+               		 sleep(2);
                 }
             	refresh_snake(&snakeHead, tab, lines);
              }
         } else {
-            automoved(curentDirection, &heady, &headx, tab, &snakeHead, &foody, &foodx, &winn, &score);
+            automoved(curentDirection, &heady, &headx, tab, &snakeHead, &foody, &foodx, &winn, &score, renderer, titelloseTextTexture, font);
             moove_snake(&snakeHead, heady, headx);
             if(Win(&snakeHead) == 1) {
                winn = 1;
                SDL_Rect rect;
-               rect.x = 50;
-               rect.y = 200;
+               rect.x = 190;
+               rect.y = 170;
+               SDL_Rect rect2;
+               rect2.x = 270;
+               rect2.y = 300;
                SDL_QueryTexture(titelwinTextTexture, NULL, NULL, &rect.w, &rect.h);
+               SDL_QueryTexture(scoreTextTexture, NULL, NULL, &rect2.w, &rect2.h);
                SDL_RenderCopy(renderer, titelwinTextTexture, NULL, &rect);
+               SDL_RenderCopy(renderer, scoreTextTexture, NULL, &rect2);
                SDL_RenderPresent(renderer);
                sleep(2);
             }
